@@ -11,9 +11,22 @@ use std::slice;
 use std::convert::From;
 use std::collections::HashMap;
 
+macro_rules! say_hello {
+    () => (
+        println!("Hello!");
+    )
+}
+
+macro_rules! print_result {
+    ($expression:expr) => (
+        println!("{:?} = {:?}", stringify!($expression), $expression);
+    )
+}
+
 // ============ Integers ============
 #[no_mangle]
 pub extern fn addition(a: uint32_t, b: uint32_t) -> uint32_t {
+    print_result!(a + b);
     a + b
 }
 
@@ -58,6 +71,7 @@ pub extern fn sum_of_even(n: *const uint32_t, len: size_t) -> uint32_t {
     let sum = numbers.iter()
                      .filter(|&v| v % 2 == 0)
                      .fold(0, |acc, v| acc + v);
+    print_result!(sum as uint32_t);
     sum as uint32_t
 }
 
@@ -129,6 +143,7 @@ pub extern fn zip_code_database_populate(ptr: *mut ZipCodeDatabase) {
         assert!(!ptr.is_null());
         &mut *ptr
     };
+    say_hello!();
     database.populate();
 }
 
