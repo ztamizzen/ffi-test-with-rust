@@ -9,7 +9,7 @@ const Tuple = RefStruct({
 });
 const numbers = new U32Array([1, 2, 3, 4, 5, 6]);
 
-const lib = ffi.Library("target/debug/ffi_test", {
+const lib = ffi.Library("target/release/ffi_test", {
     addition: ['uint32', ['uint32', 'uint32']],
     chars_counter: ['uint32', ['string']],
     flip_things_around: [Tuple, [Tuple]],
